@@ -1,8 +1,9 @@
 import { fruits } from "../lib/data";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
-const FruitContainer = styled.div`
+const ItemsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -10,11 +11,11 @@ const FruitContainer = styled.div`
 
 const FruitCard = styled.div`
   display: flex;
-  border: 1px solid #ccc;
+  flex-direction: column;
+  border: 1px solid grey;
   border-radius: 8px;
   padding: 16px;
   margin: 8px;
-  flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -34,20 +35,26 @@ const StyledImage = styled(Image)`
 export default function Home() {
   return (
     <>
-      <h1>Welcome to the Fruit Shop</h1>
-      <FruitContainer>
+      <ItemsContainer>
         {fruits.map((fruit) => (
           <FruitCard key={fruit.id}>
             <ImageContainer>
-              <StyledImage src={fruit.imageUrl} alt={fruit.name} fill={true} />
+              <Link href={`/productdetails/${fruit.id}`}>
+                <StyledImage
+                  src={fruit.imageUrl}
+                  alt={fruit.name}
+                  fill={true}
+                />
+              </Link>
             </ImageContainer>
 
             <h2>{fruit.name}</h2>
             <p>Price: {fruit.price}</p>
             <button>Add to Cart</button>
+            <button> Favorite </button>
           </FruitCard>
         ))}
-      </FruitContainer>
+      </ItemsContainer>
     </>
   );
 }
